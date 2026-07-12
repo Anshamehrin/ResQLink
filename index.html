@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ResQLink — Signal Console</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="phone">
+<header>
+<div class="wordmark"><span class="dot"></span><h1>RESQLINK</h1></div>
+<select id="lang">
+<option value="en-US" data-code="en">EN</option>
+<option value="ml-IN" data-code="ml">ML</option>
+<option value="hi-IN" data-code="hi">HI</option>
+<option value="ta-IN" data-code="ta">TA</option>
+<option value="kn-IN" data-code="kn">KN</option>
+</select>
+
+<button onclick="connectBLE()" class="action">
+🔵 CONNECT
+</button>
+
+<div class="sig-status" id="bleStatus">
+<span class="ping"></span>NOT CONNECTED
+</div>
+</header>
+
+<main id="home">
+
+<div class="module">
+<div class="module-tag">GPS-MODULE <span class="state" id="gpsStatus">SEARCHING…</span></div>
+<div class="readout">
+<span class="k">LAT</span> <span id="lat">—</span><br>
+<span class="k">LON</span> <span id="lon">—</span><br>
+<span class="k">STATUS</span> <span id="gpsState">WAITING</span><br>
+<span class="k">SYNC</span> <span id="lastUpdate">—</span>
+</div>
+<div class="map-bezel">
+<span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+<iframe id="mapFrame" src=""></iframe>
+</div>
+<a id="maps" class="map-link" href="#" target="_blank">→ OPEN IN MAPS</a>
+</div>
+
+<div class="beacon-wrap">
+<div class="beacon">
+<div class="beacon-core" onclick="triggerSOS()">
+<b>SOS</b>
+<span>PRESS TO TRANSMIT</span>
+</div>
+</div>
+<p class="beacon-caption">BEACON ARMED · TAP ONLY IN A REAL EMERGENCY</p>
+</div>
+
+<div class="module">
+<div class="module-tag">PROFILE-MODULE</div>
+<h3>Medical Profile</h3>
+<p class="hint">Sent automatically when the beacon fires.</p>
+<label>Name</label><input id="name">
+<label>Blood Group</label>
+<select id="blood" style="width:100%;font-size:14px;padding:10px 11px">
+<option>O+</option><option>O-</option><option>A+</option><option>A-</option>
+<option>B+</option><option>B-</option><option>AB+</option><option>AB-</option>
+</select>
+<label>Allergies</label><textarea id="allergy"></textarea>
+<label>Medical Condition</label><textarea id="condition"></textarea>
+<label>Emergency Contact</label><input id="phone">
+</div>
+</main>
+
+<main id="emergency">
+<div class="top-alert">
+<h2>◉ TRANSMITTING</h2>
+<p id="alertTime"></p>
+<div class="readout">
+<span class="k">NAME</span> <span id="eName"></span><br>
+<span class="k">BLOOD</span> <span id="eBlood"></span><br>
+<span class="k">ALLERGY</span> <span id="eAllergy"></span><br>
+<span class="k">CONDITION</span> <span id="eCondition"></span><br>
+<span class="k">CONTACT</span> <span id="ePhone"></span>
+</div>
+<button class="action" onclick="window.location.href='sms:'+document.getElementById('phone').value+'?body='+encodeURIComponent('Emergency! My location: '+document.getElementById('maps').href)">SEND SOS SMS</button>
+</div>
+
+<div class="module">
+<div class="module-tag">GPS-MODULE <span class="state" id="gpsStatus2">SEARCHING…</span></div>
+<div class="readout" id="gpsText"></div>
+<div class="map-bezel">
+<span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+<iframe id="mapFrame2" src=""></iframe>
+</div>
+</div>
+
+<div class="module">
+<div class="module-tag">TRACK LOG</div>
+<p class="hint">Updates live in case the patient is moved.</p>
+<div id="locHistory"></div>
+</div>
+
+
+<div class="comm-block" style="margin-top:18px;padding-top:16px;border-top:1px dashed var(--line)">
+<label style="margin-top:0">Responder → Patient (English → <span id="targetLangLabel">English</span>)</label>
+<div class="mic-row">
+<button class="action ghost" id="micBtnR" onclick="startListeningReceiver()">🎤 RESPONDER SPEAKS</button>
+<span id="listenStatusR"></span>
+</div>
+<div class="transcript" id="origTextR">—</div>
+<div class="transcript eng" id="translatedTextR">—</div>
+<button class="action ghost" onclick="readTranslatedAloudReceiver()">🔊 READ ALOUD TO PATIENT</button>
+</div>
+</div>
+</main>
+
+<div class="nav">
+<div onclick="showHome()">HOME</div>
+<div onclick="window.scrollTo(0,999)">PROFILE</div>
+<div>LANGUAGE</div>
+</div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
