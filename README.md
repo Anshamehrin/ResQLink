@@ -59,6 +59,21 @@ Future Improvements
 - Mobile application
 - Multilingual voice assistance
 
+Team Contributions
+
+This project was developed collaboratively by **Team ZEPHYR** during Startlet Hackathon 2026.
+
+Team Member 1 : Ansha Mehrin MN
+- ESP32 hardware programming
+- GPS (NEO-6M) integration
+- OLED display integration
+- Bluetooth Low Energy (BLE) communication
+- LED and buzzer control
+- Hardware testing and debugging
+
+Team Members 2 & 3 – Aysha Affifa ES and Binsha V
+- Collaborated on the software development, including the website, backend/frontend integration, and other software components of the project.
+
 License
 
 This project was developed for the Startlet Hackathon 2026 for educational and demonstration purposes.
